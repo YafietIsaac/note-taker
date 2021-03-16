@@ -15,9 +15,9 @@ router.post('/notes', (req, res) => {
     id: uuidv4(),
     ...req.body
   }
-  fs.readFile(join(__dirname, '..', 'db', 'db.json'), 'utf8', (err, data) => {
+  fs.readFile(join(__dirname, '..', 'db', 'db.json'), 'utf8', (err, info) => {
     if (err) { console.log(err) }
-    let notes = JSON.parse(data)
+    let notes = JSON.parse(info)
     notes.push(note)
 
     fs.writeFile(join(__dirname, '..', 'db', 'db.json'), JSON.stringify(notes), err => {
@@ -29,9 +29,9 @@ router.post('/notes', (req, res) => {
 
 router.delete('/notes/:id', (req, res) => {
   let id = req.params.id
-  fs.readFile(join(__dirname, '..', 'db', 'db.json'), 'utf8', (err, data) => {
+  fs.readFile(join(__dirname, '..', 'db', 'db.json'), 'utf8', (err, info) => {
     if (err) { console.log(err) }
-    let notes = JSON.parse(data)
+    let notes = JSON.parse(info)
     notes = notes.filter(note => note.id !== id)
     fs.writeFile(join(__dirname, '..', 'db', 'db.json'), JSON.stringify(notes), err => {
       if (err) { console.log(err) }
